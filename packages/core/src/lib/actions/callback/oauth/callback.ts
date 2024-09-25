@@ -1,3 +1,4 @@
+import { OpenIDTokenEndpointResponse } from "oauth4webapi"
 import * as checks from "./checks.js"
 import * as o from "oauth4webapi"
 import {
@@ -6,8 +7,8 @@ import {
 } from "../../../../errors.js"
 
 import type {
-  Account,
   InternalOptions,
+  InternalProvider,
   LoggerInstance,
   Profile,
   RequestInternal,
@@ -16,7 +17,6 @@ import type {
 } from "../../../../types.js"
 import { type OAuthConfigInternal } from "../../../../providers/index.js"
 import type { Cookie } from "../../../utils/cookie.js"
-import { isOIDCProvider } from "../../../utils/providers.js"
 
 /**
  * Handles the following OAuth steps.
@@ -106,6 +106,178 @@ export async function handleOAuth(
     redirect_uri = provider.redirectProxyUrl
   }
 
+  let tokens: TokenSet
+  if (provider.token?.request) {
+    const result = await provider.token.request({
+      params: {
+        state,
+        redirect_uri,
+        ...query,
+      },
+      checks,
+      provider,
+    })
+    if (!result) {
+      throw new Error("Custom token request did not return a valid tokenset")
+    }
+    tokens = result.tokens
+  } else {
+    tokens = await getTokens(
+      as,
+      client,
+      codeGrantParams,
+      redirect_uri,
+      codeVerifier,
+      provider,
+      cookies,
+      resCookies,
+      options
+    )
+  }
+
+  const profile =
+    provider.type === "oidc"
+      ? o.getValidatedIdTokenClaims(tokens as OpenIDTokenEndpointResponse)
+      : await getOauthProfile(provider, as, client, tokens)
+
+  if (tokens.expires_in) {
+    tokens.expires_at =
+      Math.floor(Date.now() / 1000) + Number(tokens.expires_in)
+  }
+
+  const profileResult = await getUserAndAccount(
+    profile,
+    provider,
+    tokens,
+    logger
+  )
+
+  return { ...profileResult, profile, cookies: resCookies }
+
+  // let codeGrantResponse = await o.authorizationCodeGrantRequest(
+  //   as,
+  //   client,
+  //   codeGrantParams,
+  //   redirect_uri,
+  //   codeVerifier ?? "auth", // TODO: review fallback code verifier,
+  //   {
+  //     [o.customFetch]: (...args) => {
+  //       if (
+  //         !provider.checks.includes("pkce") &&
+  //         args[1]?.body instanceof URLSearchParams
+  //       ) {
+  //         args[1].body.delete("code_verifier")
+  //       }
+  //       return fetch(...args)
+  //     },
+  //     clientPrivateKey: provider.token?.clientPrivateKey,
+  //   }
+  // )
+  //
+  // if (provider.token?.conform) {
+  //   codeGrantResponse =
+  //     (await provider.token.conform(codeGrantResponse.clone())) ??
+  //     codeGrantResponse
+  // }
+  //
+  // let challenges: o.WWWAuthenticateChallenge[] | undefined
+  // if ((challenges = o.parseWwwAuthenticateChallenges(codeGrantResponse))) {
+  //   for (const challenge of challenges) {
+  //     console.log("challenge", challenge)
+  //   }
+  //   throw new Error("TODO: Handle www-authenticate challenges as needed")
+  // }
+  //
+  // let profile: Profile = {}
+  // let tokens: TokenSet & Pick<Account, "expires_at">
+  //
+  // if (isOIDCProvider(provider)) {
+  //   const nonce = await checks.nonce.use(cookies, resCookies, options)
+  //   const processedCodeResponse =
+  //     await o.processAuthorizationCodeOpenIDResponse(
+  //       as,
+  //       client,
+  //       codeGrantResponse,
+  //       nonce ?? o.expectNoNonce
+  //     )
+  //
+  //   if (o.isOAuth2Error(processedCodeResponse)) {
+  //     console.log("error", processedCodeResponse)
+  //     throw new Error("TODO: Handle OIDC response body error")
+  //   }
+  //
+  //   const idTokenClaims = o.getValidatedIdTokenClaims(processedCodeResponse)
+  //   profile = idTokenClaims
+  //
+  //   if (provider.idToken === false) {
+  //     const userinfoResponse = await o.userInfoRequest(
+  //       as,
+  //       client,
+  //       processedCodeResponse.access_token
+  //     )
+  //
+  //     profile = await o.processUserInfoResponse(
+  //       as,
+  //       client,
+  //       idTokenClaims.sub,
+  //       userinfoResponse
+  //     )
+  //   }
+  //   tokens = processedCodeResponse
+  // } else {
+  //   const processedCodeResponse =
+  //     await o.processAuthorizationCodeOAuth2Response(
+  //       as,
+  //       client,
+  //       codeGrantResponse
+  //     )
+  //   tokens = processedCodeResponse
+  //   if (o.isOAuth2Error(processedCodeResponse)) {
+  //     console.log("error", processedCodeResponse)
+  //     throw new Error("TODO: Handle OAuth 2.0 response body error")
+  //   }
+  //
+  //   if (userinfo?.request) {
+  //     const _profile = await userinfo.request({ tokens, provider })
+  //     if (_profile instanceof Object) profile = _profile
+  //   } else if (userinfo?.url) {
+  //     const userinfoResponse = await o.userInfoRequest(
+  //       as,
+  //       client,
+  //       processedCodeResponse.access_token
+  //     )
+  //     profile = await userinfoResponse.json()
+  //   } else {
+  //     throw new TypeError("No userinfo endpoint configured")
+  //   }
+  // }
+  //
+  // if (tokens.expires_in) {
+  //   tokens.expires_at =
+  //     Math.floor(Date.now() / 1000) + Number(tokens.expires_in)
+  // }
+  //
+  // const profileResult = await getUserAndAccount(
+  //   profile,
+  //   provider,
+  //   tokens,
+  //   logger
+  // )
+  //
+  // return { ...profileResult, profile, cookies: resCookies }
+}
+
+async function getTokens(
+  as: o.AuthorizationServer,
+  client: o.Client,
+  codeGrantParams: URLSearchParams,
+  redirect_uri: string,
+  codeVerifier: string | undefined,
+  provider: InternalProvider<"oauth" | "oidc">,
+  cookies: Partial<Record<string, string>> | undefined,
+  resCookies: Cookie[],
+  options: InternalOptions<"oauth" | "oidc">
+) {
   let codeGrantResponse = await o.authorizationCodeGrantRequest(
     as,
     client,
@@ -122,7 +294,6 @@ export async function handleOAuth(
         }
         return fetch(...args)
       },
-      clientPrivateKey: provider.token?.clientPrivateKey,
     }
   )
 
@@ -140,83 +311,53 @@ export async function handleOAuth(
     throw new Error("TODO: Handle www-authenticate challenges as needed")
   }
 
-  let profile: Profile = {}
-  let tokens: TokenSet & Pick<Account, "expires_at">
-
-  if (isOIDCProvider(provider)) {
+  if (provider.type === "oidc") {
     const nonce = await checks.nonce.use(cookies, resCookies, options)
-    const processedCodeResponse =
-      await o.processAuthorizationCodeOpenIDResponse(
-        as,
-        client,
-        codeGrantResponse,
-        nonce ?? o.expectNoNonce
-      )
+    const result = await o.processAuthorizationCodeOpenIDResponse(
+      as,
+      client,
+      codeGrantResponse,
+      nonce ?? o.expectNoNonce
+    )
 
-    if (o.isOAuth2Error(processedCodeResponse)) {
-      console.log("error", processedCodeResponse)
+    if (o.isOAuth2Error(result)) {
+      console.log("error", result)
       throw new Error("TODO: Handle OIDC response body error")
     }
-
-    const idTokenClaims = o.getValidatedIdTokenClaims(processedCodeResponse)
-    profile = idTokenClaims
-
-    if (provider.idToken === false) {
-      const userinfoResponse = await o.userInfoRequest(
-        as,
-        client,
-        processedCodeResponse.access_token
-      )
-
-      profile = await o.processUserInfoResponse(
-        as,
-        client,
-        idTokenClaims.sub,
-        userinfoResponse
-      )
-    }
-    tokens = processedCodeResponse
+    return result
   } else {
-    const processedCodeResponse =
-      await o.processAuthorizationCodeOAuth2Response(
-        as,
-        client,
-        codeGrantResponse
-      )
-    tokens = processedCodeResponse
-    if (o.isOAuth2Error(processedCodeResponse)) {
-      console.log("error", processedCodeResponse)
+    const result = await o.processAuthorizationCodeOAuth2Response(
+      as,
+      client,
+      codeGrantResponse
+    )
+    if (o.isOAuth2Error(result)) {
+      console.log("error", result)
       throw new Error("TODO: Handle OAuth 2.0 response body error")
     }
+    return result
+  }
+}
 
-    if (userinfo?.request) {
-      const _profile = await userinfo.request({ tokens, provider })
-      if (_profile instanceof Object) profile = _profile
-    } else if (userinfo?.url) {
-      const userinfoResponse = await o.userInfoRequest(
-        as,
-        client,
-        processedCodeResponse.access_token
-      )
-      profile = await userinfoResponse.json()
-    } else {
-      throw new TypeError("No userinfo endpoint configured")
-    }
+async function getOauthProfile(
+  provider: InternalProvider<"oauth">,
+  as: o.AuthorizationServer,
+  client: o.Client,
+  tokens: TokenSet
+) {
+  if (provider.userinfo?.request) {
+    const result = await provider.userinfo.request({ tokens, provider })
+    return result instanceof Object ? result : {}
+  } else if (provider.userinfo?.url) {
+    const userinfoResponse = await o.userInfoRequest(
+      as,
+      client,
+      (tokens as any).access_token
+    )
+    return await userinfoResponse.json()
   }
 
-  if (tokens.expires_in) {
-    tokens.expires_at =
-      Math.floor(Date.now() / 1000) + Number(tokens.expires_in)
-  }
-
-  const profileResult = await getUserAndAccount(
-    profile,
-    provider,
-    tokens,
-    logger
-  )
-
-  return { ...profileResult, profile, cookies: resCookies }
+  throw new TypeError("No userinfo endpoint configured")
 }
 
 /**
