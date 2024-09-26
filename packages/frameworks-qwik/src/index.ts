@@ -109,9 +109,9 @@
  * @module @auth/qwik
  */
 
-import type { AuthConfig } from "@auth/core"
-import { Auth, isAuthAction, skipCSRFCheck } from "@auth/core"
-import { AuthAction, Session } from "@auth/core/types"
+import type { AuthConfig } from "@emulienfou/auth-core"
+import { Auth, isAuthAction, skipCSRFCheck } from "@emulienfou/auth-core"
+import { AuthAction, Session } from "@emulienfou/auth-core/types"
 import { implicit$FirstArg, type QRL } from "@builder.io/qwik"
 import {
   globalAction$,

@@ -22,8 +22,8 @@ import type { OAuthConfig, OAuthUserConfig } from "./index.js"
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Coinbase from "@auth/core/providers/coinbase"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Coinbase from "@emulienfou/auth-core/providers/coinbase"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

@@ -34,8 +34,8 @@ export interface AzureADProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import AzureAd from "@auth/core/providers/azure-ad"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import AzureAd from "@emulienfou/auth-core/providers/azure-ad"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -87,7 +87,7 @@ export interface AzureADProfile extends Record<string, any> {
  * In `auth.ts` find or add the `AzureAD` entries:
  *
  * ```ts
- * import AzureAd from "@auth/core/providers/azure-ad"
+ * import AzureAd from "@emulienfou/auth-core/providers/azure-ad"
  *
  * ...
  * providers: [

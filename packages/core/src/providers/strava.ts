@@ -29,8 +29,8 @@ export interface StravaProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Strava from "@auth/core/providers/strava"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Strava from "@emulienfou/auth-core/providers/strava"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

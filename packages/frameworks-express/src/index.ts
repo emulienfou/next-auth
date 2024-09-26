@@ -138,19 +138,19 @@ import {
   type AuthConfig,
   setEnvDefaults,
   createActionURL,
-} from "@auth/core"
-import type { Session } from "@auth/core/types"
+} from "@emulienfou/auth-core"
+import type { Session } from "@emulienfou/auth-core/types"
 import * as e from "express"
 import { toWebRequest, toExpressResponse } from "./lib/index.js"
 
-export { AuthError, CredentialsSignin } from "@auth/core/errors"
+export { AuthError, CredentialsSignin } from "@emulienfou/auth-core/errors"
 export type {
   Account,
   DefaultSession,
   Profile,
   Session,
   User,
-} from "@auth/core/types"
+} from "@emulienfou/auth-core/types"
 
 export type ExpressAuthConfig = Omit<AuthConfig, "raw">
 

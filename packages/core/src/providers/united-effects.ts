@@ -25,8 +25,8 @@ export interface UnitedEffectsProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import UnitedEffects from "@auth/core/providers/united-effects"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import UnitedEffects from "@emulienfou/auth-core/providers/united-effects"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

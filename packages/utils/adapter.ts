@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, expect, test } from "vitest"
 
-import type { Adapter } from "@auth/core/adapters"
+import type { Adapter } from "@emulienfou/auth-core/adapters"
 import { createHash, randomInt, randomUUID } from "crypto"
 
 export interface TestOptions {

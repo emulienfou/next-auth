@@ -4,8 +4,8 @@ import { startAuthentication, startRegistration } from "@simplewebauthn/browser"
 import type {
   BuiltInProviderType,
   RedirectableProviderType,
-} from "@auth/core/providers"
-import type { WebAuthnOptionsResponseBody } from "@auth/core/types"
+} from "@emulienfou/auth-core/providers"
+import type { WebAuthnOptionsResponseBody } from "@emulienfou/auth-core/types"
 import type { SignInOptions, SignInAuthorizationParams } from "./client.js"
 import type { LiteralUnion } from "./types.js"
 

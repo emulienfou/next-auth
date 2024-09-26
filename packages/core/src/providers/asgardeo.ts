@@ -44,8 +44,8 @@ export interface AsgardeoProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Asgarde from "@auth/core/providers/asgardeo";
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Asgarde from "@emulienfou/auth-core/providers/asgardeo";
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

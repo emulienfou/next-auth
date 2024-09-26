@@ -32,8 +32,8 @@ interface TodoistProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Todoist from "@auth/core/providers/todoist"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Todoist from "@emulienfou/auth-core/providers/todoist"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

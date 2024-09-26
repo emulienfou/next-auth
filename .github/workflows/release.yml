@@ -15,7 +15,7 @@ on:
         type: choice
         description: Package name (npm)
         options:
-          - "@auth/core"
+          - "@emulienfou/auth-core"
           - "@auth/dgraph-adapter"
           - "@auth/drizzle-adapter"
           - "@auth/dynamodb-adapter"

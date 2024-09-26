@@ -1,4 +1,4 @@
-import type { AdapterAccountType } from "@auth/core/adapters"
+import type { AdapterAccountType } from "@emulienfou/auth-core/adapters"
 import { sql } from "drizzle-orm"
 import {
   boolean,

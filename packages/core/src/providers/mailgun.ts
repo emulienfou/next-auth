@@ -18,8 +18,8 @@ import { html, text } from "../lib/utils/email.js"
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Mailgun from "@auth/core/providers/mailgun"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Mailgun from "@emulienfou/auth-core/providers/mailgun"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

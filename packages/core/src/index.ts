@@ -20,7 +20,7 @@
  * ## Usage
  *
  * ```ts
- * import { Auth } from "@auth/core"
+ * import { Auth } from "@emulienfou/auth-core"
  *
  * const request = new Request("https://example.com")
  * const response = await Auth(request, {...})
@@ -86,7 +86,7 @@ export async function Auth(
  *
  * @example
  * ```ts
- * import { Auth } from "@auth/core"
+ * import { Auth } from "@emulienfou/auth-core"
  *
  * const request = new Request("https://example.com")
  * const response = await Auth(request, {
@@ -202,7 +202,7 @@ export async function Auth(
  *
  * @example
  * ```ts
- * import Auth, { type AuthConfig } from "@auth/core"
+ * import Auth, { type AuthConfig } from "@emulienfou/auth-core"
  *
  * export const authConfig: AuthConfig = {...}
  *

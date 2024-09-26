@@ -15,7 +15,7 @@ import {
   AdapterSession,
   AdapterUser,
   VerificationToken,
-} from "@auth/core/adapters"
+} from "@emulienfou/auth-core/adapters"
 
 // pouchdb setup
 PouchDB.plugin(memoryAdapter).plugin(find)

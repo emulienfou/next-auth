@@ -29,8 +29,8 @@ export interface PatreonProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Patreon from "@auth/core/providers/patreon"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Patreon from "@emulienfou/auth-core/providers/patreon"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

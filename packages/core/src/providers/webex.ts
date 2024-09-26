@@ -36,8 +36,8 @@ export interface WebexProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Webex from "@auth/core/providers/webex"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Webex from "@emulienfou/auth-core/providers/webex"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

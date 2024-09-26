@@ -46,8 +46,8 @@ export type MicrosoftEntraIDOptions<P extends MicrosoftEntraIDProfile> =
  *
  * ### Configuration
  * ```ts
- * import { Auth } from "@auth/core"
- * import MicrosoftEntraID from "@auth/core/providers/microsoft-entra-id"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import MicrosoftEntraID from "@emulienfou/auth-core/providers/microsoft-entra-id"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
@@ -98,7 +98,7 @@ export type MicrosoftEntraIDOptions<P extends MicrosoftEntraIDProfile> =
  * In `auth.ts` find or add the `Entra` entries:
  *
  * ```ts
- * import MicrosoftEntraID from "@auth/core/providers/microsoft-entra-id"
+ * import MicrosoftEntraID from "@emulienfou/auth-core/providers/microsoft-entra-id"
  *
  * providers: [
  *   MicrosoftEntraID({

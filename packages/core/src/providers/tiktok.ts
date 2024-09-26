@@ -138,8 +138,8 @@ export interface TiktokProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import TikTok from "@auth/core/providers/tiktok"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import TikTok from "@emulienfou/auth-core/providers/tiktok"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

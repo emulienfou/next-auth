@@ -164,8 +164,8 @@ export interface NetSuiteProfile {
  * ### Configuration
  *
  * ```ts
- * import { Auth } from "@auth/core"
- * import Netsuite from "@auth/core/providers/netsuite"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Netsuite from "@emulienfou/auth-core/providers/netsuite"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

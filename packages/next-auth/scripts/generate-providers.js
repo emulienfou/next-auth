@@ -14,7 +14,7 @@ try {
     const provider = file.substring(0, file.indexOf("."))
     let content = `export * from "@emulienfou/auth-core/providers/${provider}"`
     if (provider !== "index") {
-      content += `\nexport { default } from "@auth/core/providers/${provider}"`
+      content += `\nexport { default } from "@emulienfou/auth-core/providers/${provider}"`
     }
 
     content = content.replace(/\/index/g, "")

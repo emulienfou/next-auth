@@ -4,7 +4,7 @@ export default {
     type: "separator",
     title: "Frameworks",
   },
-  core: "@auth/core",
+  core: "@emulienfou/auth-core",
   "nextjs": "next-auth",
   sveltekit: "@auth/sveltekit",
   express: "@auth/express",

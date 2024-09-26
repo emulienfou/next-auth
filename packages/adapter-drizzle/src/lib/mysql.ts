@@ -21,8 +21,8 @@ import type {
   AdapterUser,
   VerificationToken,
   AdapterAuthenticator,
-} from "@auth/core/adapters"
-import { Awaitable } from "@auth/core/types"
+} from "@emulienfou/auth-core/adapters"
+import { Awaitable } from "@emulienfou/auth-core/types"
 
 export function defineTables(
   schema: Partial<DefaultMySqlSchema> = {}

@@ -16,17 +16,17 @@
  * @module @auth/solid-start
  */
 
-import { Auth, type AuthConfig } from "@auth/core"
-import type { AuthAction, Session } from "@auth/core/types"
+import { Auth, type AuthConfig } from "@emulienfou/auth-core"
+import type { AuthAction, Session } from "@emulienfou/auth-core/types"
 
-export { AuthError, CredentialsSignin } from "@auth/core/errors"
+export { AuthError, CredentialsSignin } from "@emulienfou/auth-core/errors"
 export type {
   Account,
   DefaultSession,
   Profile,
   Session,
   User,
-} from "@auth/core/types"
+} from "@emulienfou/auth-core/types"
 
 export interface SolidAuthConfig extends AuthConfig {
   /**
@@ -84,7 +84,7 @@ function SolidAuthHandler(prefix: string, authOptions: SolidAuthConfig) {
  * ```ts
  * // routes/api/auth/[...solidauth].ts
  * import { SolidAuth, type SolidAuthConfig } from "@auth/solid-start"
- * import GitHub from "@auth/core/providers/github"
+ * import GitHub from "@emulienfou/auth-core/providers/github"
  *
  * export const authOpts: SolidAuthConfig = {
  *   providers: [
@@ -129,7 +129,7 @@ function SolidAuthHandler(prefix: string, authOptions: SolidAuthConfig) {
  *
  * ```tsx
  * // components/Protected.tsx
- * import { type Session } from "@auth/core/types";
+ * import { type Session } from "@emulienfou/auth-core/types";
  * import { getSession } from "@auth/solid-start";
  * import { Component, Show } from "solid-js";
  * import { useRouteData } from "solid-start";
@@ -192,7 +192,7 @@ function SolidAuthHandler(prefix: string, authOptions: SolidAuthConfig) {
  *
  * ```tsx
  * // entry-server.tsx
- * import { Session } from "@auth/core";
+ * import { Session } from "@emulienfou/auth-core";
  * import { getSession } from "@auth/solid-start";
  * import { redirect } from "solid-start";
  * import {

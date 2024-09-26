@@ -2,7 +2,7 @@ import { base } from "$app/paths"
 import type {
   BuiltInProviderType,
   RedirectableProviderType,
-} from "@auth/core/providers"
+} from "@emulienfou/auth-core/providers"
 import type { LiteralUnion } from "./types.js"
 
 /*

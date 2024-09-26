@@ -30,8 +30,8 @@ interface HubSpotProfile extends Record<string, any> {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import HubSpot from "@auth/core/providers/hubspot"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import HubSpot from "@emulienfou/auth-core/providers/hubspot"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

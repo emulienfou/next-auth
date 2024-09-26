@@ -46,8 +46,8 @@ export interface PassageProfile {
  *
  * #### Configuration
  *```ts
- * import { Auth } from "@auth/core"
- * import Passage from "@auth/core/providers/passage"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Passage from "@emulienfou/auth-core/providers/passage"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {

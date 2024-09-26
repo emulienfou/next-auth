@@ -5,6 +5,6 @@
   "type": "module",
   "packageManager": "pnpm@9.10.0",
   "dependencies": {
-    "@auth/core": "latest"
+    "@emulienfou/auth-core": "latest"
   }
 }

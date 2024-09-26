@@ -32,7 +32,7 @@
  * Each adapter method and its function signature is documented in the {@link Adapter} interface.
  *
  * ```ts title=my-adapter.ts
- * import { type Adapter } from "@auth/core/adapters"
+ * import { type Adapter } from "@emulienfou/auth-core/adapters"
  *
  * // 1. Simplest form, a plain object.
  * export const MyAdapter: Adapter {
@@ -70,7 +70,7 @@
  * Note, you might be able to tweak an existing adapter to work with your data layer, instead of creating one from scratch.
  *
  * ```ts title=my-adapter.ts
- * import { type Adapter } from "@auth/core/adapters"
+ * import { type Adapter } from "@emulienfou/auth-core/adapters"
  * import { PrismaAdapter } from "@auth/prisma-adapter"
  * import { PrismaClient } from "@prisma/client"
  *

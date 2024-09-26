@@ -35,8 +35,8 @@ export interface EventbriteProfile extends Record<string, any> {
  *
  * #### Configuration
  * ```ts
- * import { Auth } from "@auth/core"
- * import Eventbrite from "@auth/core/providers/eventbrite"
+ * import { Auth } from "@emulienfou/auth-core"
+ * import Eventbrite from "@emulienfou/auth-core/providers/eventbrite"
  *
  * const request = new Request(origin)
  * const response = await Auth(request, {
