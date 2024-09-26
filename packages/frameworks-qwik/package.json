@@ -50,7 +50,7 @@
     "providers": "node ../utils/scripts/providers --out src"
   },
   "dependencies": {
-    "@auth/core": "workspace:*",
+    "@emulienfou/auth-core": "workspace:*",
     "set-cookie-parser": "^2.6.0"
   },
   "devDependencies": {

@@ -1,1 +1,1 @@
-export type * from "@auth/core/adapters"
+export type * from "@emulienfou/auth-core/adapters"

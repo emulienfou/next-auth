@@ -12,7 +12,7 @@ try {
   for (const file of files) {
     const destinationPath = resolve(destinationDir, file)
     const provider = file.substring(0, file.indexOf("."))
-    let content = `export * from "@auth/core/providers/${provider}"`
+    let content = `export * from "@emulienfou/auth-core/providers/${provider}"`
     if (provider !== "index") {
       content += `\nexport { default } from "@auth/core/providers/${provider}"`
     }

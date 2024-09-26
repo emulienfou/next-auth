@@ -37,7 +37,7 @@
     "test": "vitest -c ../utils/vitest.config.ts"
   },
   "dependencies": {
-    "@auth/core": "workspace:*"
+    "@emulienfou/auth-core": "workspace:*"
   },
   "peerDependencies": {
     "@xata.io/client": ">=0.28.0"

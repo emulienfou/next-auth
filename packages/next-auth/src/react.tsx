@@ -22,8 +22,8 @@ import {
 import type {
   BuiltInProviderType,
   RedirectableProviderType,
-} from "@auth/core/providers"
-import type { LoggerInstance, Session } from "@auth/core/types"
+} from "@emulienfou/auth-core/providers"
+import type { LoggerInstance, Session } from "@emulienfou/auth-core/types"
 import type {
   AuthClientConfig,
   ClientSafeProvider,

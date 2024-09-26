@@ -41,7 +41,7 @@
     "test": "./test/test.sh"
   },
   "dependencies": {
-    "@auth/core": "workspace:*"
+    "@emulienfou/auth-core": "workspace:*"
   },
   "peerDependencies": {
     "firebase-admin": "^12.0.0"
